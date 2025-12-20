@@ -1,0 +1,9 @@
+name: BacktoDeath
+main: org.kanelucky.BacktoDeath
+version: "1.0.0"
+api: "2.0.0"
+commands:
+  back:
+    description: Return to your last death
+    usage: /back
+    permission: back.run
