@@ -14,23 +14,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BacktoDeath extends PluginBase implements Listener {
-
     private final Map<String, Position> deathLocations = new HashMap<>();
 
     @Override
     public void onLoad() {
-        getLogger().info(TextFormat.WHITE + "Loading...");
+        getLogger().info(TextFormat.WHITE + "Loading BacktoDeath plugin...");
     }
 
     @Override
     public void onEnable() {
-        getLogger().info(TextFormat.DARK_GREEN + "Enabled");
+        getLogger().info(TextFormat.DARK_GREEN + "BacktoDeath enabled!");
         getServer().getPluginManager().registerEvents(this, this);
     }
 
     @Override
     public void onDisable() {
-        getLogger().info(TextFormat.DARK_RED + "Disabled");
+        getLogger().info(TextFormat.DARK_RED + "BacktoDeath disabled!");
     }
 
     @EventHandler
@@ -38,25 +37,25 @@ public class BacktoDeath extends PluginBase implements Listener {
         Player player = event.getEntity();
         Position deathPos = player.getPosition();
         deathLocations.put(player.getName(), deathPos);
-        player.sendMessage("Use /back to return to your last death!");
+        player.sendMessage(TextFormat.YELLOW + "Use /back to return to your last death!");
     }
-
     public boolean teleportToDeath(Player player) {
-        Position pos = deathLocations.get(player.getName());
-        if (pos == null) {
-            player.sendMessage("You haven't ever died!");
+        if (!deathLocations.containsKey(player.getName())) {
+            player.sendMessage(TextFormat.RED + "You haven't ever died!");
             return false;
         }
 
+        Position pos = deathLocations.get(player.getName());
         player.teleport(pos);
-        player.sendMessage("Return to your last death successfully!");
+        player.sendMessage(TextFormat.GREEN + "Returned to your last death successfully!");
         deathLocations.remove(player.getName());
         return true;
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("You are not a player!");
+            sender.sendMessage(TextFormat.RED + "Only players can use this command!");
             return true;
         }
 
@@ -65,6 +64,7 @@ public class BacktoDeath extends PluginBase implements Listener {
         if (command.getName().equalsIgnoreCase("back")) {
             return teleportToDeath(player);
         }
+
         return false;
     }
 }
