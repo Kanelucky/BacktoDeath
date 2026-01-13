@@ -2,4 +2,5 @@
 
 
 # BacktoDeath
-Return to your last death with back
+Return to your last death with /back command
+
