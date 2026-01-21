@@ -2,6 +2,6 @@
 
 
 # BacktoDeath
-Return to your last death with /back command.
+- Return to your last death with /back command.
 
 Permission: back.run
